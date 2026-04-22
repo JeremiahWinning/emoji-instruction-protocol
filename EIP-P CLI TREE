@@ -1,0 +1,101 @@
+EIP-P CLI File Tree
+
+CLI file tree (Node + TypeScript)
+
+eip-cli/
+├─ package.json
+├─ tsconfig.json
+├─ README.md
+├─ LICENSE
+├─ bin/
+│  └─ eip.js                  # node shim → dist/cli.js
+├─ src/
+│  ├─ cli.ts                  # CLI entry; yargs/commander wiring
+│  ├─ index.ts                # library entry (exports validate, parse, runHarness, etc.)
+│  ├─ schema/
+│  │  ├─ tokens.ts            # token definitions + emoji utils
+│  │  ├─ ebnf.md              # frozen copy of the v0.2 grammar
+│  │  └─ constants.ts         # reserved ops, identifiers, units
+│  ├─ parser/
+│  │  ├─ lexer.ts             # whitespace + emoji-aware tokenizer
+│  │  ├─ parser.ts            # PRISM segment parser → AST
+│  │  └─ normalizer.ts        # map emojis → canonical strings
+│  ├─ validator/
+│  │  ├─ rules.ts             # V-001…V-009 implementations
+│  │  ├─ linter.ts            # orchestrates rules → diagnostics
+│  │  └─ autofix.ts           # safe + “fix!” transforms
+│  ├─ execution/
+│  │  ├─ planner.ts           # segments + chaining plan
+│  │  └─ model.ts             # runtime stubs (adapters per model)
+│  ├─ harness/
+│  │  ├─ vectors.ts           # TV-01…TV-06 canonical tests
+│  │  ├─ runner.ts            # cross-model runs, metrics
+│  │  └─ scoring.ts           # IA/FC/CO/U/R metrics
+│  ├─ utils/
+│  │  ├─ errors.ts            # typed errors + codes
+│  │  ├─ io.ts                # read/write, stdin/stdout helpers
+│  │  └─ logging.ts           # pretty reporters (table/json)
+│  └─ types/
+│     └─ ast.ts               # AST, diagnostics, result types
+├─ dist/                      # build output
+├─ fixtures/
+│  ├─ tv-01.eip               # sample prompts
+│  ├─ tv-02.eip
+│  └─ …
+└─ test/
+   ├─ lexer.test.ts
+   ├─ parser.test.ts
+   ├─ validator.test.ts
+   └─ harness.test.ts
+
+Minimal package.json (sketch)
+
+{
+  "name": "eip-cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": { "eip": "./bin/eip.js" },
+  "scripts": {
+    "build": "tsc -p .",
+    "dev": "tsc -w",
+    "lint": "node dist/cli.js lint fixtures/*.eip",
+    "validate": "node dist/cli.js validate",
+    "harness": "node dist/cli.js harness"
+  },
+  "dependencies": {
+    "chalk": "^5",
+    "commander": "^12"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^22",
+    "vitest": "^2"
+  }
+}
+
+CLI commands (UX)
+
+eip validate <file|-> [--fix] [--format table|json]
+parse + lint; optional autofix.
+
+eip ast <file|->
+print normalized AST.
+
+eip run <file|-> --model <id> [--temp 0.2]
+run a single prompt via configured adapter (stubbed).
+
+eip harness [--models gpt4o,gemini,claude] [--temp 0.2,0.7]
+execute Rosetta vectors and emit JSON reports.
+
+
+Core function signatures
+
+// src/index.ts
+export type { AST, Segment, Diagnostic, ValidationResult } from "./types/ast";
+export function tokenize(src: string): Token[];
+export function parse(src: string): AST;
+export function validate(src: string, opts?: { fix?: boolean }): ValidationResult;
+export function plan(ast: AST): ExecutionPlan;
+export async function runHarness(opts: HarnessOpts): Promise<HarnessReport>;
+
+
