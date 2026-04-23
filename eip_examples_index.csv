@@ -1,0 +1,7 @@
+filename,purpose,prompt
+hello-world.eip,Simple first prompt,🎭 🎯✍️ 📚(What is photosynthesis?) 📏🔢 <100w 🗣(plain)
+analysis-table.eip,Concise analysis table,🎭💼 🎯🤔 📚(Q3 revenue vs forecast) 📏📊 <150w style=concise 🗣(formal)
+brainstorm-playful.eip,Playful ideation,🎭🎨 🎯💡 📚(future city parks) 📏🔢 <120w 🗣(playful)
+guardrails-no-diagnosis.eip,Safety-limited summary,"🎭 🎯🗂 📚(symptoms: fever, cough) 📏📄 <100w 🚫(no diagnosis)"
+legal-summary-to-memo.eip,Chained legal workflow,🎭 🎯🗂 📚(NDA.txt) 📏🔢 <180w ➡️ 🎭💼 🎯✍️ 📏📄 <160w 🗣(plain)
+research-to-recommendation.eip,Research to recommendation chain,🎭🎓 🎯🤔 📚(solar energy pros and cons) 📏🔢 <150w 🗣(plain) ➡️ 🎭💼 🎯✍️ 📏📄 <120w 🗣(formal)
