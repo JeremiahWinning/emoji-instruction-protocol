@@ -1,0 +1,10 @@
+## Examples
+
+### Hello world
+🎭 🎯✍️ 📚(What is photosynthesis?) 📏🔢 <100w 🗣(plain)
+
+### Chained workflow
+🎭 🎯🗂 📚(NDA.txt) 📏🔢 <180w ➡️ 🎭💼 🎯✍️ 📏📄 <160w 🗣(plain)
+
+### Guardrails
+🎭 🎯🗂 📚(symptoms: fever, cough) 📏📄 <100w 🚫(no diagnosis)
