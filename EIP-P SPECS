@@ -1,0 +1,98 @@
+# EIP-P Specification
+
+## Overview
+
+EIP-P is a pictographic programming language for AI agents. It encodes instructions using emoji-based operators and structured modifiers.
+
+## Core operators
+
+### 🎭 Persona
+Defines who the agent should be.
+
+Examples:
+- 🎭 teacher
+- 🎭 doctor
+- 🎭💼 strategist
+- 🎭🎨 artist
+
+### 🎯 Request
+Defines the primary action.
+
+Examples:
+- 🎯✍️ write
+- 🎯🤔 analyze
+- 🎯💡 brainstorm
+- 🎯🗂 summarize
+- 🎯🛠 fix/solve
+
+### 📚 Input & Context
+Optional source material, background data, or domain context.
+
+Examples:
+- 📚(text)
+- 📚🔗(url)
+- 📚📄(doc ref)
+- 📚📈 finance
+
+### 📏 Structure & Constraints
+Defines required output format, limits, and style.
+
+Examples:
+- 📏📄 essay
+- 📏📊 table
+- 📏🔢 steps/list
+- 📏🎤 speech/script
+- <200w
+- <90s
+- style=concise
+
+### ✨ Mastery Example
+Optional gold-standard example to emulate.
+
+Example:
+- ✨INPUT:(Explain rainbows to a kid) -> OUTPUT:(3 steps, vivid analogy)
+
+## Valid segment rule
+
+A segment is valid only if it contains:
+1. 🎭 Persona
+2. 🎯 Request
+3. 📏 Structure & Constraints
+
+These must appear in that order.
+
+## Modifiers
+
+### ➡️ Chain
+Links segments. Output of the left segment feeds into the right unless the right segment defines its own 📚 input.
+
+### 🗣(tone)
+Applies only to the nearest segment.
+
+### 🔄n
+Repeats the nearest segment n times and returns the final result.
+
+### 🚫(forbid)
+Adds guardrails that override conflicting 🎯 instructions.
+
+## Validation rules
+
+- V-001: Required operators 🎭, 🎯, 📏 must be present.
+- V-002: Literal payloads must be wrapped in parentheses.
+- V-003: Word limits use `w`; time limits use `s` or `m`.
+- V-004: ➡️ explicitly forms a pipeline.
+- V-009: Each segment should contain a single primary action.
+
+## Examples
+
+### Minimal valid prompt
+🎭 🎯✍️ 📏📄 <200w
+
+### Context + tone
+🎭💼 🎯🤔 📚(Q3 revenue vs forecast) 📏📊 <150w style=concise 🗣(formal)
+
+### Guardrails
+🎭 🎯🗂 📚(symptoms: fever, cough) 📏📄 <100w 🚫(no diagnosis)
+
+### Chained workflow
+🎭 🎯🗂 📚(NDA.txt) 📏🔢 <180w ➡️ 🎭💼 🎯✍️ 📏📄 <160w 🗣(plain)
