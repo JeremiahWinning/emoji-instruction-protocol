@@ -1,0 +1,48 @@
+# Contributing to EIP-P
+
+Thanks for helping improve EIP-P.
+
+## Before you start
+
+Please read:
+- `README.md`
+- `spec/EIP-P-Spec.md`
+- `docs/EIP-P-Pocket-Dictionary.pdf`
+
+## What to contribute
+
+Good contributions include:
+- New example prompts
+- Clarifications to the spec
+- Additional validation rules
+- CLI improvements
+- Bug fixes
+- Test cases
+
+## Guidelines
+
+- Keep the P.R.I.S.M. skeleton intact
+- Avoid ambiguous operators
+- Keep examples short and clear
+- Prefer one primary action per segment
+- Use explicit chaining for multi-step workflows
+
+## How to submit
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Make your changes.
+4. Test your updates.
+5. Open a pull request.
+
+## Writing style
+
+Please keep writing:
+- clear
+- concise
+- practical
+- developer-friendly
+
+## Code of conduct
+
+Be respectful and constructive in issues and pull requests.
